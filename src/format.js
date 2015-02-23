@@ -311,6 +311,11 @@ angular.module('angularPayments')
 
   _formatForwardExpiry = function(e) {
     var $target, digit, val;
+
+    // Allow normal system keys to work
+    if (_isSystemKey(e.which) || e.metaKey) {
+      return;
+    }
     
     digit = String.fromCharCode(e.which);
     
