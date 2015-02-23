@@ -27,6 +27,11 @@ angular.module('angularPayments')
            character === '8' || character === '9';
   };
 
+  var _isSystemKey = function(code) {
+    // 8 = backspace, 13 = enter
+    return code === 8 || code === 0 || code === 13;
+  }
+
   // card formatting
 
   var _formatCardNumber = function(e) {
@@ -199,13 +204,8 @@ angular.module('angularPayments')
     digit = String.fromCharCode(e.which);
     value = $target.val()
 
-    // Is control character (arrow keys, delete, enter, etc...)
-    function isSystemKey(code) {
-      return code === 8 || code === 0 || code === 13
-    }
-
     // Allow normal system keys to work
-    if (isSystemKey(e.which) || e.metaKey) {
+    if (_isSystemKey(e.which) || e.metaKey) {
       return
     }
 
