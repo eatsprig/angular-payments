@@ -19,6 +19,14 @@ angular.module('angularPayments')
       return false;
     };
 
+  var _isNumeric = function(character) {
+    return character === '0' || character === '1' ||
+           character === '2' || character === '3' ||
+           character === '4' || character === '5' ||
+           character === '6' || character === '7' ||
+           character === '8' || character === '9';
+  };
+
   // card formatting
 
   var _formatCardNumber = function(e) {
@@ -42,6 +50,11 @@ angular.module('angularPayments')
       }
       
       if (length >= upperLength) {
+        return;
+      }
+
+      if (!_isNumeric(digit)) {
+        e.preventDefault();
         return;
       }
 
@@ -196,6 +209,11 @@ angular.module('angularPayments')
       return
     }
 
+    if (!_isNumeric(digit)) {
+      e.preventDefault();
+      return;
+    }
+
     // Prevent entering non-digit characters
     if (!/\d+$/.test(digit)) {
       e.preventDefault();
@@ -235,6 +253,11 @@ angular.module('angularPayments')
     digit = String.fromCharCode(e.which);
     
     if (!/^\d+$/.test(digit) && !e.metaKey && e.keyCode >= 46) {
+      e.preventDefault();
+      return;
+    }
+
+    if (!_isNumeric(digit)) {
       e.preventDefault();
       return;
     }
