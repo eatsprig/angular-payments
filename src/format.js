@@ -380,6 +380,9 @@ angular.module('angularPayments')
   var _parseExpiry = function(value) {
     if(value != null) {
       var obj = Common.parseExpiry(value);
+      if (!obj.year || !obj.month) {
+        return null;
+      }
       var expiry = new Date(obj.year, obj.month-1);
       return $filter('date')(expiry, 'MM/yyyy');
     }
