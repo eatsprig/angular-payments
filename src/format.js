@@ -257,6 +257,11 @@ angular.module('angularPayments')
       return;
     }
 
+    // Allow normal system keys to work
+    if (_isSystemKey(e.which) || e.metaKey) {
+      return;
+    }
+
     if (!_isNumeric(digit)) {
       e.preventDefault();
       return;
@@ -282,6 +287,11 @@ angular.module('angularPayments')
     
     if (!/^\d+$/.test(digit) && !e.metaKey && e.keyCode >= 46) {
       e.preventDefault();
+      return;
+    }
+
+    // Allow normal system keys to work
+    if (_isSystemKey(e.which) || e.metaKey) {
       return;
     }
     
